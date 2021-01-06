@@ -1,7 +1,7 @@
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ReplyKeyboardMarkup
-
+import wikipedia
 import settings
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
@@ -22,9 +22,12 @@ def greet_user(update, context):
 
 
 def talk_to_me(update,context):
-	text = update.message.text
-	print(text)
-	update.message.reply_text("Надо подумать...")
+	user_text = update.message.text
+	comparison_res = input_comparison(user_text)
+	#print(comparison_res) check2
+	theory_summary = wiki_search(comparison_res)
+	update.message.reply_text(theory_summary) 
+
 
 def main():
 	mybot = Updater(settings.API_KEY,use_context = True)
@@ -41,6 +44,22 @@ def main():
 
 def main_keyboard():
 	return ReplyKeyboardMarkup([['/start']])
+
+def input_comparison(text):
+	text = text.lower()
+
+	with open('conspiracy_obscurans_db.txt','r', encoding='utf-8') as f:
+		for line in f:
+			line = line.lower()
+			if text in line:
+				#print(line) check
+				return line
+
+def wiki_search(theory):
+	wikipedia.set_lang("ru")
+	wiki_page = wikipedia.page(theory)
+	return wiki_page.summary
+
 
 
 if __name__ == "__main__":
