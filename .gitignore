@@ -1,8 +1,10 @@
-settings.py
 *.log
+*distance.py
+*.ipynb
+.ipynb_checkpoints
 .vscode/
 .idea/
 env/
 .DS_Store
 __pycache__/
-*distance.py
+settings.py

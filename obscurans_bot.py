@@ -1,9 +1,11 @@
+import jellyfish as jf
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ReplyKeyboardMarkup
 import wikipedia
+
 import settings
-import jellyfish as jf
+
 
 #wikipediaapi.log.setLevel(level=wikipediaapi.logging.DEBUG)
 logging.basicConfig(filename='bot.log', level=logging.INFO)
